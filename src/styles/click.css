@@ -1,0 +1,24 @@
+.CoinContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.Coin {
+    width: 20px;
+    height: 20px;
+    background-color: #ffd700; /* 금색 */
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: spin 1s linear infinite; /* 애니메이션 추가 */
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
