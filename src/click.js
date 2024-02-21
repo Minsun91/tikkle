@@ -56,7 +56,7 @@ function openUrlInIncognito(url) {
 export default function Click() {
     const currentLinkIndexRef = useRef(-1);
     const [linkOpenCount, setLinkOpenCount] = useState(0);
-    const [coins, setCoins] = useState(0);
+    const [coins, setCoins] = useState([]);
 
     useEffect(() => {
         const openNextLink = () => {
@@ -67,7 +67,10 @@ export default function Click() {
             
             const currentTime = new Date().toLocaleTimeString();
             setLinkOpenCount(prevCount => prevCount + 1);
-            setCoins(prevCoins => prevCoins + 1);
+            setCoins(prevCoins => [...prevCoins, {
+                id: linkOpenCount,
+                time: currentTime
+            }]);
             console.log(`[${currentTime}] Opening ${links[randomIndex]}. Link opened ${linkOpenCount} times.`);
             openUrlInIncognito(links[randomIndex]);
             currentLinkIndexRef.current = randomIndex;
@@ -84,7 +87,12 @@ export default function Click() {
     const handleOpenPopup = () => {
         const randomIndex = Math.floor(Math.random() * links.length);
         const link = links[randomIndex];
-        window.open(link, "", "width=300, height=300");
+        openUrlInIncognito(link); // 팝업 열기
+        setCoins(prevCoins => [{
+            id: linkOpenCount,
+            time: new Date().toLocaleTimeString()
+        }, ...prevCoins]); // 동전 쌓기
+        setLinkOpenCount(prevCount => prevCount + 1);
     };
 
     return (
@@ -93,13 +101,13 @@ export default function Click() {
             <p>이 페이지를 새 인코그니토 창에서 열어주세요.  </p>
             <div className="CoinContainer">
                 <TransitionGroup> {/* coins를 TransitionGroup으로 감싸서 애니메이션 효과 추가 */}
-                    {[...Array(coins)].map((_, index) => (
+                    {coins.map(coin => (
                         <CSSTransition
-                            key={index}
+                            key={coin.id}
                             classNames="fade"
                             timeout={300}
                         >
-                            <div key={index} className="Coin"></div>
+                            <div className="Coin" key={coin.id}></div>
                         </CSSTransition>
                     ))}
                 </TransitionGroup>
@@ -109,3 +117,4 @@ export default function Click() {
         </div>
     );
 }
+
