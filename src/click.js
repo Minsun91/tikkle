@@ -62,7 +62,6 @@ function openUrlInIncognito(url) {
     window.open(url, "_blank", options);
 }
 
-
 export default function Click() {
     const currentLinkIndexRef = useRef(-1);
     const [linkOpenCount, setLinkOpenCount] = useState(0);
@@ -91,18 +90,17 @@ export default function Click() {
     }, [linkOpenCount]); // linkOpenCount가 변경될 때마다 useEffect가 다시 실행되도록 함
 
     useEffect(() => {
-        console.log("Coins updated:", coins); // coins 상태값이 업데이트될 때마다 콘솔에 메시지 출력
     }, [coins]); // coins 상태값이 변경될 때마다 useEffect가 다시 실행되도록 함
 
     const handleOpenPopup = () => {
         const randomIndex = Math.floor(Math.random() * links.length);
         const link = links[randomIndex];
-        openUrlInIncognito(link); // 팝업 열기
+        openUrlInIncognito(link); 
         setCoins(prevCoins => [{
             id: linkOpenCount,
             time: new Date().toLocaleTimeString(),
             x: Math.random() * (window.innerWidth - 40) 
-        }, ...prevCoins]); // 동전 쌓기
+        }, ...prevCoins]); // 동전 쌓기, 안쌓임
         setLinkOpenCount(prevCount => prevCount + 1);
     };
 
@@ -133,7 +131,7 @@ export default function Click() {
                         <CSSTransition
                             key={coin.id}
                             classNames="coin-fall"
-                            timeout={5000}
+                            timeout={60000}
                         >
                             <div className="Coin"  style={{ left: coin.x }} key={coin.id}></div>
                         </CSSTransition>
