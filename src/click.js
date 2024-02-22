@@ -54,8 +54,14 @@ import './styles/button.css';
 gsap.registerPlugin(CSSPlugin);
 
 function openUrlInIncognito(url) {
-    window.open(url, "_blank", "toolbar=0,location=0,menubar=0");
+    const width = 400;
+    const height = 450;
+    const left = (window.innerWidth - width);
+    const top = (window.innerHeight - height);
+    const options = `toolbar=0,location=0,menubar=0,width=${width},height=${height},left=${left},top=${top}`;
+    window.open(url, "_blank", options);
 }
+
 
 export default function Click() {
     const currentLinkIndexRef = useRef(-1);
@@ -94,27 +100,24 @@ export default function Click() {
         openUrlInIncognito(link); // 팝업 열기
         setCoins(prevCoins => [{
             id: linkOpenCount,
-            time: new Date().toLocaleTimeString()
+            time: new Date().toLocaleTimeString(),
+            x: Math.random() * (window.innerWidth - 40) 
         }, ...prevCoins]); // 동전 쌓기
         setLinkOpenCount(prevCount => prevCount + 1);
     };
 
     useEffect(() => {
         document.querySelectorAll('.button').forEach(button => {
-            // 버튼에 대한 마우스 이벤트 처리
             button.addEventListener('mousemove', e => {
                 // 마우스 이동에 따른 애니메이션 효과 적용
-                // 여기에 GSAP 코드 추가
             });
 
             button.addEventListener('mouseleave', e => {
                 // 마우스가 버튼을 떠날 때의 애니메이션 효과 적용
-                // 여기에 GSAP 코드 추가
             });
 
             button.addEventListener('click', e => {
                 // 버튼 클릭 시의 애니메이션 효과 적용
-                // 여기에 GSAP 코드 추가
             });
         });
     }, []);
@@ -130,9 +133,9 @@ export default function Click() {
                         <CSSTransition
                             key={coin.id}
                             classNames="coin-fall"
-                            timeout={450}
+                            timeout={5000}
                         >
-                            <div className="Coin" key={coin.id}></div>
+                            <div className="Coin"  style={{ left: coin.x }} key={coin.id}></div>
                         </CSSTransition>
                     ))}
                 </TransitionGroup>

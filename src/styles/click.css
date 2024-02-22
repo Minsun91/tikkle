@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* 화면의 높이에 따라 조절 */
+  height: 50vh; /* 화면의 높이에 따라 조절 */
 }
 
 .CoinContainer {
@@ -14,19 +14,18 @@
   }
   
   .Coin {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     background-image: url("https://i.ibb.co/MgbPfvb/istockphoto-171580596-612x612.jpg");
     background-size: cover;
     position: absolute;
-    bottom: calc(-20px * var(--index)); /* 동전이 위로 떨어지도록 bottom 값을 조정 */
-    left: calc(50% - 10px); /* 가운데 정렬 */
-    animation: drop 2s linear infinite; /* 떨어지는 애니메이션 적용 */
+    left: calc(50%);
+    animation: drop 5s infinite; 
   }
   
   @keyframes drop {
-    0% { transform: translateY(-50vh); } /* 시작 위치 */
-    100% { transform: translateY(100vh); } /* 최종 위치 */
+    0% { transform: translateY(-100vh); } /* 시작 위치 */
+    100% { transform: translateY(90vh); } /* 최종 위치 */
   }
   
   .fade-enter {
@@ -39,4 +38,4 @@
     transform: translateY(0);
     transition: opacity 300ms, transform 300ms;
   }
-  
+
