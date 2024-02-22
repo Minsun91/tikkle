@@ -1,13 +1,9 @@
-$background-color: #f5f8ff;
-$button-background: #404663;
-$button-text-color: #fff;
-
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: $background-color;
+  background-color: #f5f8ff;
   font-family: 'Roboto', sans-serif;
   line-height: 1.5;
   min-block-size: 100vh;
@@ -23,8 +19,8 @@ button {
 }
 
 .button {
-  background-color: $button-background;
-  color: $button-text-color;
+  background-color: #404663;
+  color: #fff;
   border: 0;
   font-size: 2rem;
   font-weight: 400;

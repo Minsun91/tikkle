@@ -14,38 +14,36 @@ module.exports = {
     },    
     module: {
         rules: [
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env', '@babel/preset-react']
-              }
-            }
-          },
-          {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader']
-          },
-          {
-            test: /\.scss$/,
-            use: [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-            ]
-        }        
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }        
         ]
-      }
-      ,
-      plugins: [
+    },
+    plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
         })
     ],
-    
     output: {
         publicPath: '/dist/',    //웹 서버에서 배포할 기본 경로를 뜻한다.  webpack-dev-server을 사용할때 추가해줘야 한다. 안그러면 에러난다.
         filename: '[name].js',   //[name].js으로 해주면 아라서 위에 entry에 있는 app이 [name].js로 들어간다.

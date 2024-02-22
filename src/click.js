@@ -1,4 +1,3 @@
-// // Click.js
 // import React, { useEffect, useRef, useState } from 'react';
 // import links from './link';  
 
@@ -45,21 +44,17 @@
 // }
 
 import React, { useEffect, useRef, useState } from 'react';
-import links from './link';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import confetti from "canvas-confetti";
+import gsap from 'gsap';
+import { CSSPlugin } from 'gsap';
+import links from './link';
 import './styles/click.css';
-// import './styles/button.css';
-import './styles/button.scss';
+import './styles/button.css';
+
+gsap.registerPlugin(CSSPlugin);
 
 function openUrlInIncognito(url) {
     window.open(url, "_blank", "toolbar=0,location=0,menubar=0");
-}
-function onClick() {
-    confetti({
-        particleCount: 150,
-        spread: 60
-    });
 }
 
 export default function Click() {
@@ -73,7 +68,7 @@ export default function Click() {
             do {
                 randomIndex = Math.floor(Math.random() * links.length);
             } while (currentLinkIndexRef.current === randomIndex);
-
+            console.log("야")
             const currentTime = new Date().toLocaleTimeString();
             setLinkOpenCount(prevCount => prevCount + 1);
             setCoins(prevCoins => [...prevCoins, {
@@ -104,12 +99,33 @@ export default function Click() {
         setLinkOpenCount(prevCount => prevCount + 1);
     };
 
+    useEffect(() => {
+        document.querySelectorAll('.button').forEach(button => {
+            // 버튼에 대한 마우스 이벤트 처리
+            button.addEventListener('mousemove', e => {
+                // 마우스 이동에 따른 애니메이션 효과 적용
+                // 여기에 GSAP 코드 추가
+            });
+
+            button.addEventListener('mouseleave', e => {
+                // 마우스가 버튼을 떠날 때의 애니메이션 효과 적용
+                // 여기에 GSAP 코드 추가
+            });
+
+            button.addEventListener('click', e => {
+                // 버튼 클릭 시의 애니메이션 효과 적용
+                // 여기에 GSAP 코드 추가
+            });
+        });
+    }, []);
+
     return (
+        <div className="centered-container">
         <div>
-            <h1>Let's turn dust into Money!🤑</h1>
+            <h1>Let's turn dust into Money! 🤑</h1>
             <p>Open this page in a new Incognito window. </p>
             <div className="CoinContainer">
-                <TransitionGroup> {/* coins를 TransitionGroup으로 감싸서 애니메이션 효과 추가 */}
+                <TransitionGroup>
                     {coins.map(coin => (
                         <CSSTransition
                             key={coin.id}
@@ -121,9 +137,9 @@ export default function Click() {
                     ))}
                 </TransitionGroup>
             </div>
-            <button onClick={() => { handleOpenPopup(); onClick(); }} data-text="Add Tikkle"> Add Tikkle </button>
-
-            {/* <button onClick={handleOpenPopup} data-text="Add Tikkle"> Add Tikkle </button> */}
+            <button class="fun-btn" onClick={handleOpenPopup} data-text="Add Tikkle"> Add Tikkle </button>
         </div>
+    </div>
+    
     );
 }

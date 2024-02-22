@@ -45,7 +45,9 @@ const links = [
     "https://www.clickasnap.com/profile/Minsun/photo/01HPS0VPN56A8N4BWMYKKQC7VM",
     "https://www.clickasnap.com/profile/Minsun/photo/01HPS0VMNW4551H2TYZ1TJGRWV",
     "https://www.clickasnap.com/profile/Minsun/photo/01HQ307PHEK2HV46HR219AXA22",
-    "https://www.clickasnap.com/profile/Minsun/photo/01HPYYERKGA1C3CK4GRTBSPDS2"
+    "https://www.clickasnap.com/profile/Minsun/photo/01HPYYERKGA1C3CK4GRTBSPDS2",
+    "https://www.clickasnap.com/profile/Minsun/photo/01HQ5778V1PEY7F30PVJ9H2AKC",
+    "https://www.clickasnap.com/profile/Minsun/photo/01HQ9888KVJSRB0NHDDZ0ZD98G"
   ];
 
   export default links
