@@ -1,31 +1,28 @@
+
 .CoinContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.Coin {
-    top: 0;
-    width: 20px;
-    height: 20px;
-    background-color: #ffd700; /* 금색 */
-    border-radius: 50%;
-    margin-right: 5px;
-    animation: spin 1s linear infinite; /* 애니메이션 추가 */
-    transform: translateX(-50%);
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.fade-enter {
+  }
+  
+  .Coin {
+    width: 40px;
+    height: 40px;
+    background-image: url("https://i.ibb.co/MgbPfvb/istockphoto-171580596-612x612.jpg");
+    background-size: cover;
+    position: absolute;
+    bottom: calc(-20px * var(--index)); /* 동전이 위로 떨어지도록 bottom 값을 조정 */
+    left: calc(50% - 10px); /* 가운데 정렬 */
+    animation: drop 2s linear infinite; /* 떨어지는 애니메이션 적용 */
+  }
+  
+  @keyframes drop {
+    0% { transform: translateY(-50vh); } /* 시작 위치 */
+    100% { transform: translateY(100vh); } /* 최종 위치 */
+  }
+  
+  .fade-enter {
     opacity: 0;
     transform: translateY(100%);
   }
