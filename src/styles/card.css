@@ -1,0 +1,20 @@
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    width: 100%; 
+    max-width: 200px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto; 
+    object-fit: cover;
+}

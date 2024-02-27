@@ -1,55 +1,12 @@
-// import React, { useEffect, useRef, useState } from 'react';
-// import links from './link';  
-
-// function openUrlInIncognito(url) {
-//     window.open(url, "_blank", "toolbar=0,location=0,menubar=0");
-// }
-
-// export default function Click() {
-//     const currentLinkIndexRef = useRef(-1);
-//     const [linkOpenCount, setLinkOpenCount] = useState(0);
-
-//     useEffect(() => {
-//         const openNextLink = () => {
-//             const randomIndex = Math.floor(Math.random() * links.length); // 랜덤 인덱스 선택
-//             if (currentLinkIndexRef.current === randomIndex) {
-//                 openNextLink(); // 현재 링크와 같은 경우 다음 링크를 선택
-//             } else {
-//                 const currentTime = new Date().toLocaleTimeString(); // 현재 시간 가져오기
-//                 setLinkOpenCount(prevCount => prevCount + 1); // 링크를 열은 횟수 증가
-//                 console.log(`[${currentTime}] Opening ${links[randomIndex]}. Link opened ${linkOpenCount} times.`); // 콘솔에 시간과 열릴 링크, 그리고 누적된 링크를 열은 횟수 출력
-//                 openUrlInIncognito(links[randomIndex]); // 새 인코그니토 창에서 새 링크 열기
-//                 currentLinkIndexRef.current = randomIndex; // 현재 링크 인덱스 업데이트
-//             }
-//         };
-
-//         const interval = setInterval(openNextLink, 100000);
-
-//         return () => clearInterval(interval);
-//     }, [linkOpenCount]); // linkOpenCount가 변경될 때마다 useEffect가 다시 실행되도록 함
-
-//     const handleVisitButtonClick = () => {
-//         const randomIndex = Math.floor(Math.random() * links.length);
-//         openUrlInIncognito(links[randomIndex]);
-//         currentLinkIndexRef.current = randomIndex;
-//     };
-
-//     return (
-//         <div>
-//             <h1>티끌을 모아보자!</h1>
-//             <p>이 페이지를 새 인코그니토 창에서 열어주세요.  </p>
-//             <button onClick={handleVisitButtonClick}>Click</button>
-//         </div>
-//     );
-// }
-
 import React, { useEffect, useRef, useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import gsap from 'gsap';
 import { CSSPlugin } from 'gsap';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 import links from './link';
 import './styles/click.css';
 import './styles/button.css';
+import './styles/card.css';
 
 gsap.registerPlugin(CSSPlugin);
 
@@ -122,25 +79,35 @@ export default function Click() {
 
     return (
         <div className="centered-container">
-        <div>
-            <h1>Let's turn dust into Money! 🤑</h1>
-            <p>Open this page in a new Incognito window. </p>
-            <div className="CoinContainer">
-                <TransitionGroup>
-                    {coins.map(coin => (
-                        <CSSTransition
-                            key={coin.id}
-                            classNames="coin-fall"
-                            timeout={60000}
-                        >
-                            <div className="Coin"  style={{ left: coin.x }} key={coin.id}></div>
-                        </CSSTransition>
-                    ))}
-                </TransitionGroup>
+           <div className="firstContainer">
+                <h1>Let's turn dust into Money! 🤑</h1>
+                <p>Open this page in a new Incognito window. </p>
+                <div className="CoinContainer">
+                    <TransitionGroup>
+                        {coins.map(coin => (
+                            <CSSTransition
+                                key={coin.id}
+                                classNames="coin-fall"
+                                timeout={60000}
+                            >
+                                <div className="Coin" style={{ left: coin.x }} key={coin.id}></div>
+                            </CSSTransition>
+                        ))}
+                    </TransitionGroup>
+                </div>
+                <button className="fun-btn" onClick={handleOpenPopup} data-text="Add Tikkle">Add Tikkle</button>
             </div>
-            <button class="fun-btn" onClick={handleOpenPopup} data-text="Add Tikkle"> Add Tikkle </button>
+            <br />
+            <div className="card-deck">
+                {links.map((link, index) => (
+                    <div className="card" key={index}>
+                        <img src="https://d1unuvan7ts7ur.cloudfront.net/1500x0/filters:strip_exif()/38aabcf3-9db8-4eb9-adbb-cdbdf49f4560/01HPFF9S6TM05TKAK0S4K11X05" className="card-img-top" />
+                        {/* <img src={link} className="card-img-top" alt={`Link Image ${index}`} /> */}
+                        <div className="card-body">
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
-    </div>
-    
     );
 }
