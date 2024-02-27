@@ -14,11 +14,18 @@
   justify-content: center;
 }
 
-.CoinContainer {
+/* .CoinContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* margin-bottom: 10px; */
+  margin-bottom: 10px;
+} */
+
+.CoinContainer {
+  display: flex;
+  flex-wrap: wrap; 
+  align-items: center;
+  justify-content: flex-start; 
 }
 
 .Coin {
@@ -28,7 +35,9 @@
   background-size: cover;
   position: relative; 
   animation: drop 5.5s infinite;
+  z-index: 9999
 }
+
 
 @keyframes drop {
   0% { transform: translateY(-100vh); } 

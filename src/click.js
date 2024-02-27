@@ -32,25 +32,30 @@ export default function Click() {
             } while (currentLinkIndexRef.current === randomIndex);
             const currentTime = new Date().toLocaleTimeString();
             setLinkOpenCount(prevCount => prevCount + 1);
-            setCoins(prevCoins => [...prevCoins, {
+        
+            const x = Math.random() * (window.innerWidth - 40); // 동전이 떨어지는 x 좌표를 랜덤으로 설정
+            setCoins(prevCoins => [{
                 id: linkOpenCount,
-                time: currentTime
-            }]);
-            console.log(`[${currentTime}] Opening ${links[randomIndex]}. Link opened ${linkOpenCount} times.`);
-            openUrlInIncognito(links[randomIndex]);
+                time: new Date().toLocaleTimeString(),
+                x: x >= 0 ? x : 0  
+            }, ...prevCoins]);
+            
+            console.log(`[${currentTime}] Opening ${links[randomIndex].link}. Link opened ${linkOpenCount} times.`);
+            openUrlInIncognito(links[randomIndex].link); 
             currentLinkIndexRef.current = randomIndex;
         };
-
+      
         const interval = setInterval(openNextLink, 200000); // 200초마다 링크 열기
         return () => clearInterval(interval);
-    }, [linkOpenCount]); // linkOpenCount가 변경될 때마다 useEffect가 다시 실행되도록 함
+    }, [linkOpenCount]); 
 
     useEffect(() => {
     }, [coins]); // coins 상태값이 변경될 때마다 useEffect가 다시 실행되도록 함
 
     const handleOpenPopup = () => {
         const randomIndex = Math.floor(Math.random() * links.length);
-        const link = links[randomIndex].link;
+        const linkObject = links[randomIndex]; 
+        const link = linkObject.link;  
         openUrlInIncognito(link);
         setCoins(prevCoins => [{
             id: linkOpenCount,
@@ -58,7 +63,7 @@ export default function Click() {
             x: Math.random() * (window.innerWidth - 40)
         }, ...prevCoins]);
         setLinkOpenCount(prevCount => prevCount + 1);
-    };
+    };   
 
     useEffect(() => {
         document.querySelectorAll('.button').forEach(button => {
@@ -101,12 +106,10 @@ export default function Click() {
 
             <div className="card-deck">
                 {links.map((item, index) => (
-                    <div className="card" key={index}>
+                    <div className="card" key={index} >
                         <a href={item.link} target="_blank" rel="noopener noreferrer">
                             <img src={item.imgSrc} className="card-img-top" alt={`Link Image ${index}`} />
                         </a>
-                        <div className="card-body">
-                        </div>
                     </div>
                 ))}
             </div>

@@ -6,8 +6,8 @@
 }
 
 .card {
-    width: 100%; 
-    max-width: 200px; 
+    width: 200px; 
+    /* height: 300px; */
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
@@ -15,6 +15,6 @@
 
 .card-img-top {
     width: 100%;
-    height: auto; 
-    object-fit: cover;
+    height: 150px;
+    object-fit: cover
 }
