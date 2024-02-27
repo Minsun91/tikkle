@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import gsap from 'gsap';
 import { CSSPlugin } from 'gsap';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import links from './link';
 import './styles/click.css';
 import './styles/button.css';
@@ -30,7 +30,6 @@ export default function Click() {
             do {
                 randomIndex = Math.floor(Math.random() * links.length);
             } while (currentLinkIndexRef.current === randomIndex);
-            console.log("야")
             const currentTime = new Date().toLocaleTimeString();
             setLinkOpenCount(prevCount => prevCount + 1);
             setCoins(prevCoins => [...prevCoins, {
@@ -51,13 +50,13 @@ export default function Click() {
 
     const handleOpenPopup = () => {
         const randomIndex = Math.floor(Math.random() * links.length);
-        const link = links[randomIndex];
-        openUrlInIncognito(link); 
+        const link = links[randomIndex].link;
+        openUrlInIncognito(link);
         setCoins(prevCoins => [{
             id: linkOpenCount,
             time: new Date().toLocaleTimeString(),
-            x: Math.random() * (window.innerWidth - 40) 
-        }, ...prevCoins]); // 동전 쌓기, 안쌓임
+            x: Math.random() * (window.innerWidth - 40)
+        }, ...prevCoins]);
         setLinkOpenCount(prevCount => prevCount + 1);
     };
 
@@ -79,7 +78,7 @@ export default function Click() {
 
     return (
         <div className="centered-container">
-           <div className="firstContainer">
+            <div className="firstContainer">
                 <h1>Let's turn dust into Money! 🤑</h1>
                 <p>Open this page in a new Incognito window. </p>
                 <div className="CoinContainer">
@@ -98,16 +97,20 @@ export default function Click() {
                 <button className="fun-btn" onClick={handleOpenPopup} data-text="Add Tikkle">Add Tikkle</button>
             </div>
             <br />
+            <br />
+
             <div className="card-deck">
-                {links.map((link, index) => (
+                {links.map((item, index) => (
                     <div className="card" key={index}>
-                        <img src="https://d1unuvan7ts7ur.cloudfront.net/1500x0/filters:strip_exif()/38aabcf3-9db8-4eb9-adbb-cdbdf49f4560/01HPFF9S6TM05TKAK0S4K11X05" className="card-img-top" />
-                        {/* <img src={link} className="card-img-top" alt={`Link Image ${index}`} /> */}
+                        <a href={item.link} target="_blank" rel="noopener noreferrer">
+                            <img src={item.imgSrc} className="card-img-top" alt={`Link Image ${index}`} />
+                        </a>
                         <div className="card-body">
                         </div>
                     </div>
                 ))}
             </div>
+
         </div>
     );
 }
